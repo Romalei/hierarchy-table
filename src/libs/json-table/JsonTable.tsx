@@ -8,11 +8,7 @@ export class JsonTable extends React.Component<JsonTableProps, any> {
     render() {
         return (
             <div className="json-table-container">
-                {this.caption && (
-                    <div className="json-table-caption">
-                        {this.caption}
-                    </div>
-                )}
+                {this.caption && (<div className="json-table-caption">{this.caption}</div>)}
 
                 <table
                     className="json-table"
@@ -20,55 +16,38 @@ export class JsonTable extends React.Component<JsonTableProps, any> {
                     cellPadding="0"
                 >
                     <thead className="json-table__head">
-                    {this.renderHeadings()}
+                    <tr className="json-table__row json-table__row_heading">
+                        <th className="json-table__cell json-table__cell_heading"/>
+
+                        {
+                            this.getHeadingColumnNames().map((colName, index) => (
+                                <th
+                                    key={index}
+                                    className="json-table__cell json-table__cell_heading"
+                                >{colName}</th>
+                            ))
+                        }
+                    </tr>
                     </thead>
                     <tbody className="json-table__body">
-                    {this.renderRows()}
+                    {
+                        this.records.map((record, index) => (
+                            <React.Fragment key={index}>
+                                <JsonTableRow
+                                    key={index}
+                                    record={record}
+                                />
+                            </React.Fragment>
+                        ))
+                    }
                     </tbody>
                 </table>
             </div>
         );
     }
 
-    private renderHeadings(): JSX.Element {
-        const columns = Object.keys(this.records[0].data);
-
-        return (
-            <tr className="json-table__row json-table__row_heading">
-                {
-                    columns.map((colName, index) => (
-                        <th
-                            key={index}
-                            className="json-table__cell json-table__cell_heading"
-                        >{colName}</th>
-                    ))
-                }
-            </tr>
-        )
-    }
-
-    private renderRows(): JSX.Element[] {
-        return this.records.map((record, index) => {
-            const cells = Object.values(record.data);
-
-            return (
-                <React.Fragment key={index}>
-                    <JsonTableRow
-                        key={index}
-                        nestedTables={record.children}
-                    >
-                        {
-                            cells.map((value: any, index) => (
-                                <td
-                                    key={index}
-                                    className="json-table__cell"
-                                >{value}</td>
-                            ))
-                        }
-                    </JsonTableRow>
-                </React.Fragment>
-            )
-        });
+    private getHeadingColumnNames(): string[] {
+        return Object.keys(this.records[0].data);
     }
 
     private get records(): JsonTableRecord[] {
