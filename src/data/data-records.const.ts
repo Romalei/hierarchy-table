@@ -1,6 +1,6 @@
-import { TreeViewRecord } from "../libs/tree-view-table/models/tree-view-record";
+import { DataRecord } from "../models/data-record";
 
-export const RECORDS: TreeViewRecord[] = [
+export const DATA_RECORDS: DataRecord[] = [
     {
         "data": {
             "Identification number": "34",
