@@ -1,6 +1,6 @@
 import { DataRecordsMapper } from './data-records-mapper';
 import { DataRecord } from '../models/data-record';
-import { JsonTableDataSource } from '../libs/json-table/models/json-table-record';
+import { TableDataSource } from '../libs/json-table/models/table-record';
 
 describe('DataRecordsMapper', () => {
     let sut: DataRecordsMapper | null;
@@ -51,7 +51,7 @@ describe('DataRecordsMapper', () => {
                     kids: {},
                 },
             ];
-            const expectedResult: JsonTableDataSource = {
+            const expectedResult: TableDataSource = {
                 records: [
                     {
                         data: {
@@ -97,7 +97,7 @@ describe('DataRecordsMapper', () => {
             };
             sut = new DataRecordsMapper(dataRecords);
 
-            const actualResult = sut.toJsonTableDataSource();
+            const actualResult = sut.toTableDataSource();
 
             expect(actualResult).toEqual(expectedResult);
         });

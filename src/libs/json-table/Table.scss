@@ -1,47 +1,41 @@
 $outer-border-color: #d5d4d4;
 $inner-border-color: #edecec;
 $row-color: #f8f8f8;
+$row-hover-color: #dceaff;
 $heading-row-color: #edecec;
 $cell-padding: .25em .5em;
 
-.json-table-container {
+.h-table-container {
   background-color: #fff;
   border: 1px solid $outer-border-color;
 }
 
-.json-table-caption {
+.h-table-caption {
   font-weight: 500;
   padding: $cell-padding;
 }
 
-.json-table {
+.h-table {
   width: 100%;
   border: 1px solid $inner-border-color;
 }
 
-.json-table__head {
-
-}
-
-.json-table__body {
-
-}
-
-.json-table__row {
-
-}
-
-.json-table__row_heading {
-}
-
-.json-table__cell {
-  font: inherit;
-  border: 1px solid $inner-border-color;
-  padding: $cell-padding;
+.h-table__row {
   background-color: $row-color;
 }
 
-.json-table__cell_heading {
+.h-table__row_expandable:hover {
+  background-color: $row-hover-color !important;
+  cursor: default;
+}
+
+.h-table__cell {
+  font: inherit;
+  border: 1px solid $inner-border-color;
+  padding: $cell-padding;
+}
+
+.h-table__cell_heading {
   border: 0;
   font-weight: 500;
   background-color: $heading-row-color;
