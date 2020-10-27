@@ -63,7 +63,11 @@ class App extends React.Component<AppProps, { dataSource: TableDataSource }> {
     }
 
     private deleteRecord(record: TableRecord): void {
-        this.props.removeRecord(record.id);
+        const confirmed = window.confirm('Are you sure want to delete this record?');
+
+        if (confirmed) {
+            this.props.removeRecord(record.id);
+        }
     }
 }
 
