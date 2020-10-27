@@ -1,6 +1,6 @@
 import { DataRecordsMapper } from './data-records-mapper';
 import { DataRecord } from '../models/data-record';
-import { TableDataSource } from '../libs/json-table/models/table-record';
+import { TableDataSource } from '../libs/table';
 
 describe('DataRecordsMapper', () => {
     let sut: DataRecordsMapper | null;
@@ -13,6 +13,7 @@ describe('DataRecordsMapper', () => {
         it('should return data records', () => {
             const dataRecords: DataRecord[] = [
                 {
+                    id: '1',
                     data: {
                         x: 'x1',
                         y: 'y1',
@@ -21,6 +22,7 @@ describe('DataRecordsMapper', () => {
                         has_relatives: {
                             records: [
                                 {
+                                    id: '2',
                                     data: {
                                         a: 'a1',
                                         b: 'b1',
@@ -29,6 +31,7 @@ describe('DataRecordsMapper', () => {
                                         has_phone: {
                                             records: [
                                                 {
+                                                    id: '3',
                                                     data: {
                                                         q: 'q1',
                                                         w: 'w1',
@@ -44,6 +47,7 @@ describe('DataRecordsMapper', () => {
                     },
                 },
                 {
+                    id: '4',
                     data: {
                         x: 'x2',
                         y: 'y2',
@@ -54,6 +58,7 @@ describe('DataRecordsMapper', () => {
             const expectedResult: TableDataSource = {
                 records: [
                     {
+                        id: '1',
                         data: {
                             x: 'x1',
                             y: 'y1',
@@ -63,6 +68,7 @@ describe('DataRecordsMapper', () => {
                                 caption: 'has_relatives',
                                 records: [
                                     {
+                                        id: '2',
                                         data: {
                                             a: 'a1',
                                             b: 'b1',
@@ -72,6 +78,7 @@ describe('DataRecordsMapper', () => {
                                                 caption: 'has_phone',
                                                 records: [
                                                     {
+                                                        id: '3',
                                                         data: {
                                                             q: 'q1',
                                                             w: 'w1',
@@ -87,6 +94,7 @@ describe('DataRecordsMapper', () => {
                         ],
                     },
                     {
+                        id: '4',
                         data: {
                             x: 'x2',
                             y: 'y2',

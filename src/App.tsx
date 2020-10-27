@@ -1,34 +1,38 @@
 import React from 'react';
 import './App.scss';
-import { DATA_RECORDS } from './data/data-records.const';
-import { Table } from './libs/json-table/Table';
-import { DataRecord } from './models/data-record';
-import { TableDataSource, TableRecord } from './libs/json-table/models/table-record';
+import { TableDataSource, TableRecord, Table, TableCell, TableColumnHeader } from './libs/table';
 import { DataRecordsMapper } from './mappers/data-records-mapper';
-import { TableColumnHeader } from './libs/json-table/TableColumnHeader';
-import TableRow from './libs/json-table/TableRow';
-import { TableCell } from './libs/json-table/TableCell';
+import TableRow from './libs/table/TableRow';
+import { connect } from 'react-redux';
+import { AppState } from './store/root-reducer';
+import { bindActionCreators, Dispatch } from 'redux';
+import { loadRecords, removeRecord } from './store/actions';
 
-class App extends React.Component<any, { dataSource: TableDataSource }> {
-    constructor(props: any) {
-        super(props);
+export interface AppProps {
+    dataSource: TableDataSource;
 
-        this.state = {
-            dataSource: this.mapRecords(DATA_RECORDS),
-        };
+    removeRecord(recordId: string): void;
 
-        console.log(DATA_RECORDS);
-        console.log(this.state);
+    loadRecords(): void;
+}
+
+class App extends React.Component<AppProps, { dataSource: TableDataSource }> {
+    componentDidMount() {
+        this.props.loadRecords();
     }
 
     render() {
-        const { dataSource } = this.state;
+        const { dataSource } = this.props;
 
         return (
             <div className="app">
-                {this.table(dataSource)}
+                {this.hasRecords() ? this.table(dataSource) : <p>Table is empty</p>}
             </div>
         );
+    }
+
+    private hasRecords(): boolean {
+        return this.props.dataSource.records.length > 0;
     }
 
     private table(dataSource: TableDataSource): JSX.Element {
@@ -47,7 +51,7 @@ class App extends React.Component<any, { dataSource: TableDataSource }> {
                         {columns.map(key => <TableCell key={key}>{row.data[key]}</TableCell>)}
 
                         <TableCell width="1%">
-                            <button onClick={(e) => this.deleteRecord(e, row)} className="btn btn-danger">D</button>
+                            <button onClick={() => this.deleteRecord(row)} className="btn btn-danger">D</button>
                         </TableCell>
                     </TableRow>
                 )}
@@ -58,17 +62,18 @@ class App extends React.Component<any, { dataSource: TableDataSource }> {
         );
     }
 
-    private mapRecords(records: DataRecord[]): TableDataSource {
-        const mapper = new DataRecordsMapper(records);
-
-        return mapper.toTableDataSource();
-    }
-
-    private deleteRecord(e: React.MouseEvent<HTMLElement>, record: TableRecord): void {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log(record)
+    private deleteRecord(record: TableRecord): void {
+        this.props.removeRecord(record.id);
     }
 }
 
-export default App;
+const putStateToProps = (state: AppState) => ({
+    dataSource: new DataRecordsMapper(state.records).toTableDataSource(),
+});
+
+const putActionsToProps = (dispatch: Dispatch) => ({
+    removeRecord: bindActionCreators(removeRecord, dispatch),
+    loadRecords: bindActionCreators(loadRecords, dispatch),
+})
+
+export default connect(putStateToProps, putActionsToProps)(App);

@@ -1,14 +1,17 @@
 import { DataRecord, DataRecordKids } from '../models/data-record';
-import { TableDataSource, TableRecord } from '../libs/json-table/models/table-record';
+import { TableDataSource, TableRecord } from '../libs/table';
 
 export class DataRecordsMapper {
-    constructor(private readonly records: DataRecord[]) {}
+    constructor(
+        private readonly records: DataRecord[],
+    ) {}
 
     toTableDataSource(caption?: string): TableDataSource {
         const result: TableDataSource = { caption, records: [] };
 
-        this.records.forEach(({ data: row, kids }) => {
+        this.records.forEach(({ data: row, kids, id }) => {
             const rec: TableRecord = {
+                id,
                 data: row,
                 children: this.dataSourcesFromKids(kids),
             };

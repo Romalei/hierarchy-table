@@ -4,6 +4,7 @@ export interface TableDataSource {
 }
 
 export interface TableRecord {
+    id: string;
     data: { [key: string]: string };
     children: TableDataSource[];
 }

@@ -7,6 +7,10 @@ class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
         super(props);
 
         this.state = { expanded: false };
+
+        this.toggle = this.toggle.bind(this);
+        this.expand = this.expand.bind(this);
+        this.collapse = this.collapse.bind(this);
     }
 
     isExpanded(): boolean {
@@ -20,12 +24,9 @@ class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
 
         return (
             <React.Fragment>
-                <tr
-                    onClick={() => this.toggle()}
-                    className={`h-table__row${this.hasNestedTables() ? ' h-table__row_expandable' : ''}`}
-                >
+                <tr className={`h-table__row${this.hasNestedTables() ? ' h-table__row_expandable' : ''}`}>
                     <TableCell width="1%">
-                        {this.hasNestedTables() && (<button className="btn btn-primary">T</button>)}
+                        {this.hasNestedTables() && (<button onClick={this.toggle} className="btn btn-primary">T</button>)}
                     </TableCell>
                     {children}
                 </tr>

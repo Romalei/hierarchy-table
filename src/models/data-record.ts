@@ -5,6 +5,7 @@ export interface DataRecordKids {
 }
 
 export interface DataRecord {
+    id: string;
     data: { [key: string]: string };
     kids: DataRecordKids;
 }
