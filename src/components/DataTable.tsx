@@ -36,7 +36,7 @@ export class DataTable extends React.Component<DataTableProps, any> {
                     <TableRow
                         key={index}
                         nestedTables={row.children}
-                        nestedTableRender={dataSource => this.table(dataSource)}
+                        nestedTableRender={nestedTable => this.table(nestedTable)}
                     >
                         {columns.map(key => <TableCell key={key}>{row.data[key]}</TableCell>)}
 
