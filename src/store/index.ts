@@ -1,7 +1,7 @@
 import { applyMiddleware, createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { AppState, rootReducer } from './root-reducer';
+import { AppState, appReducer } from './app-reducer';
 import logger from './middlewares/logger';
 
 export default function configureStore(preloadedState?: AppState) {
@@ -11,5 +11,5 @@ export default function configureStore(preloadedState?: AppState) {
     const enhancers = [middlewareEnhancer];
     const composedEnhancers = composeWithDevTools(...enhancers);
 
-    return createStore(rootReducer, preloadedState, composedEnhancers);
+    return createStore(appReducer, preloadedState, composedEnhancers);
 }

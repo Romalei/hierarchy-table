@@ -2,13 +2,13 @@ import React from 'react';
 import './App.scss';
 import { TableRecord } from './libs/table';
 import { connect } from 'react-redux';
-import { AppState } from './store/root-reducer';
+import { AppState } from './store/app-reducer';
 import { bindActionCreators, Dispatch } from 'redux';
-import { loadRecords, removeRecord } from './store/actions';
+import { loadRecords, removeRecord } from './store/app-actions';
 import { DataRecord } from './models/data-record';
 import { DataTable } from './components/DataTable';
 
-export interface AppProps {
+interface AppProps {
     records: DataRecord[];
 
     removeRecord(recordId: string): void;

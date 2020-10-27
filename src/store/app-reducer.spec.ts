@@ -1,8 +1,8 @@
-import { AppState, rootReducer } from './root-reducer';
-import { removeRecord } from './actions';
+import { AppState, appReducer } from './app-reducer';
+import { removeRecord } from './app-actions';
 import { DataRecord } from '../models/data-record';
 
-describe('Root Reducer', () => {
+describe('App Reducer', () => {
     let state: AppState;
 
     beforeEach(() => {
@@ -46,7 +46,7 @@ describe('Root Reducer', () => {
         it('should remove 1-st level record', () => {
             const id = '1';
 
-            const actualResult: DataRecord[] = rootReducer(state, removeRecord(id)).records;
+            const actualResult: DataRecord[] = appReducer(state, removeRecord(id)).records;
             const expectedResult: DataRecord[] = [
                 {
                     id: '3',
@@ -71,7 +71,7 @@ describe('Root Reducer', () => {
         it('should remove nested record', () => {
             const id = '2';
 
-            const actualResult: DataRecord[] = rootReducer(state, removeRecord(id)).records;
+            const actualResult: DataRecord[] = appReducer(state, removeRecord(id)).records;
             const expectedResult: DataRecord[] = [
                 {
                     id: '1',

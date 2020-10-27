@@ -1,5 +1,5 @@
 import { DataRecord } from '../models/data-record';
-import { AppActions, LOAD_RECORDS, REMOVE_RECORD } from './actions';
+import { AppActions, LOAD_RECORDS, REMOVE_RECORD } from './app-actions';
 
 export interface AppState {
     records: DataRecord[];
@@ -34,7 +34,7 @@ const _removeRecord = (state: AppState, recordId: string): AppState => ({
     records: _removeRecordRecursive(state.records, recordId),
 });
 
-export function rootReducer(state: AppState = initialState, action: AppActions): AppState {
+export function appReducer(state: AppState = initialState, action: AppActions): AppState {
     switch (action.type) {
         case LOAD_RECORDS:
             return {
