@@ -1,6 +1,6 @@
 import { DataRecordsMapper } from './data-records-mapper';
-import { DataRecord } from '../models/data-record';
-import { TableDataSource } from '../libs/table';
+import { DataRecord } from '../../models/data-record';
+import { TableDataSource } from '../../libs/table';
 
 describe('DataRecordsMapper', () => {
     let sut: DataRecordsMapper | null;

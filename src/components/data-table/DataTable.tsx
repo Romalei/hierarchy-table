@@ -1,8 +1,8 @@
 import React from 'react';
-import { DataRecord } from '../models/data-record';
-import { Table, TableCell, TableColumnHeader, TableDataSource, TableRecord } from '../libs/table';
-import TableRow from '../libs/table/TableRow';
-import { DataRecordsMapper } from '../mappers/data-records-mapper';
+import { DataRecord } from '../../models/data-record';
+import { Table, TableCell, TableColumnHeader, TableDataSource, TableRecord } from '../../libs/table';
+import TableRow from '../../libs/table/TableRow';
+import { DataRecordsMapper } from './data-records-mapper';
 
 export interface DataTableProps {
     records: DataRecord[];

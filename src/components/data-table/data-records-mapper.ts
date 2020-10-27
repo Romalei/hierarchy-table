@@ -1,5 +1,5 @@
-import { DataRecord, DataRecordKids } from '../models/data-record';
-import { TableDataSource, TableRecord } from '../libs/table';
+import { DataRecord, DataRecordKids } from '../../models/data-record';
+import { TableDataSource, TableRecord } from '../../libs/table';
 
 export class DataRecordsMapper {
     constructor(

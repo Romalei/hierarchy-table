@@ -6,7 +6,7 @@ import { AppState } from './store/app-reducer';
 import { bindActionCreators, Dispatch } from 'redux';
 import { loadRecords, removeRecord } from './store/app-actions';
 import { DataRecord } from './models/data-record';
-import { DataTable } from './components/DataTable';
+import { DataTable } from './components/data-table/DataTable';
 
 interface AppProps {
     records: DataRecord[];
