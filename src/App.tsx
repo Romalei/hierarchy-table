@@ -1,64 +1,40 @@
 import React from 'react';
 import './App.scss';
-import { TableDataSource, TableRecord, Table, TableCell, TableColumnHeader } from './libs/table';
-import { DataRecordsMapper } from './mappers/data-records-mapper';
-import TableRow from './libs/table/TableRow';
+import { TableRecord } from './libs/table';
 import { connect } from 'react-redux';
 import { AppState } from './store/root-reducer';
 import { bindActionCreators, Dispatch } from 'redux';
 import { loadRecords, removeRecord } from './store/actions';
+import { DataRecord } from './models/data-record';
+import { DataTable } from './components/DataTable';
 
 export interface AppProps {
-    dataSource: TableDataSource;
+    records: DataRecord[];
 
     removeRecord(recordId: string): void;
 
     loadRecords(): void;
 }
 
-class App extends React.Component<AppProps, { dataSource: TableDataSource }> {
+class App extends React.Component<AppProps, any> {
+    constructor(props: AppProps) {
+        super(props);
+
+        this.deleteRecord = this.deleteRecord.bind(this);
+    }
+
     componentDidMount() {
         this.props.loadRecords();
     }
 
     render() {
-        const { dataSource } = this.props;
-
         return (
             <div className="app">
-                {this.hasRecords() ? this.table(dataSource) : <p>Table is empty</p>}
+                <DataTable
+                    records={this.props.records}
+                    onDelete={this.deleteRecord}
+                />
             </div>
-        );
-    }
-
-    private hasRecords(): boolean {
-        return this.props.dataSource.records.length > 0;
-    }
-
-    private table(dataSource: TableDataSource): JSX.Element {
-        const columns = Object.keys(dataSource.records[0].data);
-        const toolColumns = ['_delete'];
-
-        return (
-            <Table
-                dataSource={dataSource}
-                rowRender={(row, index) => (
-                    <TableRow
-                        key={index}
-                        nestedTables={row.children}
-                        nestedTableRender={dataSource => this.table(dataSource)}
-                    >
-                        {columns.map(key => <TableCell key={key}>{row.data[key]}</TableCell>)}
-
-                        <TableCell width="1%">
-                            <button onClick={() => this.deleteRecord(row)} className="btn btn-danger">D</button>
-                        </TableCell>
-                    </TableRow>
-                )}
-            >
-                {columns.map(colKey => <TableColumnHeader key={colKey}>{colKey}</TableColumnHeader>)}
-                {toolColumns.map(colKey => <TableColumnHeader key={colKey}/>)}
-            </Table>
         );
     }
 
@@ -72,7 +48,7 @@ class App extends React.Component<AppProps, { dataSource: TableDataSource }> {
 }
 
 const putStateToProps = (state: AppState) => ({
-    dataSource: new DataRecordsMapper(state.records).toTableDataSource(),
+    records: state.records,
 });
 
 const putActionsToProps = (dispatch: Dispatch) => ({
