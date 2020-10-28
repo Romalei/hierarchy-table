@@ -1,8 +1,9 @@
 import React from 'react';
 import { TableRowProps } from './models/table-row-props';
 import { TableCell } from './TableCell';
+import { arrowDown, arrowRight } from './icons';
 
-class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
+export class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
     constructor(props: any) {
         super(props);
 
@@ -25,9 +26,11 @@ class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
         return (
             <React.Fragment>
                 <tr className={`h-table__row${this.hasNestedTables() ? ' h-table__row_expandable' : ''}`}>
-                    <TableCell width="1%">
-                        {this.hasNestedTables() && (<button onClick={this.toggle} className="btn btn-primary">T</button>)}
-                    </TableCell>
+                    <TableCell width="1%">{
+                        this.hasNestedTables() && (
+                            <button onClick={this.toggle} className="btn">{this.expansionIcon}</button>
+                        )
+                    }</TableCell>
                     {children}
                 </tr>
                 {this.isExpanded() && nestedTableRender != null && (
@@ -62,6 +65,8 @@ class TableRow extends React.Component<TableRowProps, { expanded: boolean }> {
     private hasNestedTables(): boolean {
         return !!this.props.nestedTables?.length;
     }
-}
 
-export default TableRow;
+    private get expansionIcon(): JSX.Element {
+        return this.isExpanded() ? arrowDown : arrowRight;
+    }
+}

@@ -17,8 +17,8 @@ export class Table extends React.Component<TableProps, any> {
                 >
                     <thead>
                     <tr className="h-table__row">
-                        <TableHeadCell width="1%"/>
-                        {this.props.children}
+                        {this.expansionColumn}
+                        {this.providedColumns}
                     </tr>
                     </thead>
                     <tbody>
@@ -27,6 +27,14 @@ export class Table extends React.Component<TableProps, any> {
                 </table>
             </div>
         );
+    }
+
+    private get expansionColumn(): JSX.Element {
+        return <TableHeadCell width="1%"/>;
+    }
+
+    private providedColumns(): React.ReactNode {
+        return this.props.children;
     }
 
     private get records(): TableRecord[] {
