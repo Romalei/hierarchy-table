@@ -71,7 +71,12 @@ class HomePage extends React.Component<HomePageProps, any> {
                         {columnNames.map(key => <TableCell key={key}>{row.data[key]}</TableCell>)}
 
                         <TableCell width="1%">
-                            <button onClick={() => this.deleteRecord(row)} className="btn btn-danger">{trashIcon}</button>
+                            <button
+                                aria-label="Delete record"
+                                title="Delete record"
+                                onClick={() => this.deleteRecord(row)}
+                                className="btn btn-danger"
+                            >{trashIcon}</button>
                         </TableCell>
                     </TableRow>
                 )}

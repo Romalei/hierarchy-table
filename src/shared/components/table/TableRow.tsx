@@ -28,7 +28,12 @@ export class TableRow extends React.Component<TableRowProps, { expanded: boolean
                 <tr className={`h-table__row${this.hasNestedTables() ? ' h-table__row_expandable' : ''}`}>
                     <TableCell width="1%">{
                         this.hasNestedTables() && (
-                            <button onClick={this.toggle} className="btn">{this.expansionIcon}</button>
+                            <button
+                                aria-label={this.expansionTooltip}
+                                title={this.expansionTooltip}
+                                onClick={this.toggle}
+                                className="btn"
+                            >{this.expansionIcon}</button>
                         )
                     }</TableCell>
                     {children}
@@ -64,6 +69,10 @@ export class TableRow extends React.Component<TableRowProps, { expanded: boolean
 
     private hasNestedTables(): boolean {
         return !!this.props.nestedTables?.length;
+    }
+
+    private get expansionTooltip(): string {
+        return this.isExpanded() ? 'Collapse row' : 'Expand row'
     }
 
     private get expansionIcon(): JSX.Element {
