@@ -20,6 +20,9 @@ export class TableRow extends React.Component<TableRowProps, { expanded: boolean
 
     render() {
         const { nestedTables, nestedTableRender } = this.props;
+
+        // This line looks terrible but unfortunately, due to not having a lot of experience with React, I did such a trick.
+        // There should definitely be a better way to grab all children as a single array.
         const children = (this.props.children as React.ReactElement[][]).flat();
         const columnCount = children.length + 1;
 
