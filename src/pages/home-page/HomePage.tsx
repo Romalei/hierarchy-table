@@ -47,12 +47,12 @@ class HomePage extends React.Component<HomePageProps, any> {
         return <div>{this.table(dataSource)}</div>;
     }
 
-    private createDataSource(): TableDataSource {
-        return new DataRecordsMapper(this.props.records).toTableDataSource();
-    }
-
     private isEmptyTable(): boolean {
         return this.props.records.length === 0;
+    }
+
+    private createDataSource(): TableDataSource {
+        return new DataRecordsMapper(this.props.records).toTableDataSource();
     }
 
     private table(dataSource: TableDataSource): JSX.Element {
