@@ -5,5 +5,4 @@ export * from './models/table-row-props';
 export * from './Table';
 export * from './TableCell';
 export * from './TableColumnHeader';
-export * from './TableHeadCell';
 export * from './TableRow';

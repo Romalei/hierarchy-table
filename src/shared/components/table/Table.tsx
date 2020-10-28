@@ -2,7 +2,7 @@ import React from 'react';
 import './Table.scss';
 import { TableRecord } from './models/table-record';
 import { TableProps } from './models/table-props';
-import { TableHeadCell } from './TableHeadCell';
+import { TableColumnHeader } from './TableColumnHeader';
 
 export class Table extends React.Component<TableProps, any> {
     render() {
@@ -30,10 +30,10 @@ export class Table extends React.Component<TableProps, any> {
     }
 
     private get expansionColumn(): JSX.Element {
-        return <TableHeadCell width="1%"/>;
+        return <TableColumnHeader width="1%"/>;
     }
 
-    private providedColumns(): React.ReactNode {
+    private get providedColumns(): React.ReactNode {
         return this.props.children;
     }
 
