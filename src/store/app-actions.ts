@@ -1,5 +1,5 @@
-import { DATA_RECORDS } from '../data/data-records.const';
-import { DataRecord } from '../models/data-record';
+import { DATA_RECORDS } from '../__data/data-records.const';
+import { DataRecord } from '../models';
 
 // action types
 export const LOAD_RECORDS = 'LOAD_RECORDS';

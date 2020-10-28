@@ -1,4 +1,4 @@
-import { DataRecord } from '../models/data-record';
+import { DataRecord } from '../models';
 
 export const DATA_RECORDS: DataRecord[] = [
     {
